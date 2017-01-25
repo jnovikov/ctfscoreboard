@@ -68,7 +68,7 @@ def make_challenges(cats, tags):
             'Lose', 'Draw', 'Long', 'Pointer', 'Free', 'Not',
             'Only', 'Live', 'Secret', 'Agent', 'Hax0r', 'Whiskey',
             'Tango', 'Foxtrot')
-    for _ in xrange(25):
+    for _ in range(25):
         title = random.sample(chall_words, 3)
         random.shuffle(title)
         title = ' '.join(title)
@@ -95,7 +95,7 @@ def make_challenges(cats, tags):
 def make_answers(teams, challs):
     for team in teams:
         times = sorted(
-                [random.randint(0, 24*60) for _ in xrange(16)],
+                [random.randint(0, 24*60) for _ in range(16)],
                 reverse=True)
         for ch in random.sample(challs, random.randint(4, 16)):
             a = models.Answer.create(ch, team, '')

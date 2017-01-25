@@ -19,9 +19,8 @@ Volatile filesystem backend for attachments.
 
 
 import hashlib
-
 import flask
-import StringIO
+import six
 
 from scoreboard import main
 
@@ -45,7 +44,7 @@ def delete(attachment):
 def upload(fp):
     """Upload the file attachment to the storage medium."""
     md = hashlib.sha256()
-    ret = StringIO.StringIO()
+    ret = six.StringIO()
     while True:
         blk = fp.read(2**16)
         if not blk:

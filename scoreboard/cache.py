@@ -16,6 +16,7 @@
 import functools
 import json
 import flask
+import six
 
 from werkzeug.contrib import cache
 
@@ -62,7 +63,7 @@ def rest_cache(f_or_key):
                     cache_key = f.__name__
             return _rest_cache_caller(f, cache_key, *args, **kwargs)
         return wrapped
-    if isinstance(f_or_key, basestring):
+    if isinstance(f_or_key, six.string_types):
         override_cache_key = f_or_key
         return wrap_func
     return wrap_func(f_or_key)
@@ -88,7 +89,7 @@ def rest_team_cache(f_or_key):
                 return _rest_cache_caller(f, cache_key, *args, **kwargs)
             return f(*args, **kwargs)
         return wrapped
-    if isinstance(f_or_key, basestring):
+    if isinstance(f_or_key, six.string_types):
         override_cache_key = f_or_key
         return wrap_func
     return wrap_func(f_or_key)

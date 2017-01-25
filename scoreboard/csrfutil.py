@@ -28,16 +28,17 @@ app = main.get_app()
 
 def _get_csrf_token(user=None, expires=None):
     user = user or flask.session.get('user', flask.request.remote_addr)
-    expires = expires or time.time() + 60 * 60 * 24
+    expires = expires or int(time.time()) + 60 * 60 * 24
     expires_bytes = struct.pack('<I', expires)
-    msg = '%s:%s' % (user, expires_bytes)
-    sig = hmac.new(app.config.get('SECRET_KEY'), msg, hashlib.sha256).digest()
+    msg = ('%s:%s' % (user, expires_bytes)).encode('utf-8')
+    secret_key = bytes(app.config.get('SECRET_KEY'), 'utf-8')
+    sig = hmac.new(secret_key, msg, hashlib.sha256).digest()
     return expires_bytes + sig
 
 
 def get_csrf_token(*args, **kwargs):
     """Returns a URL-safe base64 CSRF token."""
-    return base64.b64encode(str(_get_csrf_token(*args, **kwargs)), '_-')
+    return base64.b64encode(_get_csrf_token(*args, **kwargs), b'_-')
 
 
 def verify_csrf_token(token, user=None):

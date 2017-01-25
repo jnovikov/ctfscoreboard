@@ -20,6 +20,7 @@ import json
 import logging
 import os.path
 import pbkdf2
+import six
 import time
 import unittest
 
@@ -234,6 +235,8 @@ def json_monkeypatch():
     """Automatically strip our XSSI header."""
     def new_loads(data, *args, **kwargs):
         try:
+            if not isinstance(data, six.string_types):
+                data = data.decode('utf-8')
             prefix = ")]}',\n"
             if data.startswith(prefix):
                 data = data[len(prefix):]

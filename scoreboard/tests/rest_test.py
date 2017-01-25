@@ -15,7 +15,7 @@
 
 import flask
 import json
-import StringIO
+import six
 
 from scoreboard.tests import base
 from scoreboard.tests import data
@@ -229,7 +229,7 @@ class AttachmentTest(base.RestTestCase):
 
     def uploadFile(self, filename, text):
         with self.admin_client as c:
-            string = StringIO.StringIO()
+            string = six.StringIO()
             string.write(text)
             string.seek(0)
             return c.post('/api/attachments', data={
