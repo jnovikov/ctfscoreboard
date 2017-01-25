@@ -21,7 +21,7 @@ Local filesystem backend for attachments.
 import hashlib
 import os
 import os.path
-import urlparse
+from six.moves.urllib import parse as urlparse
 
 import flask
 

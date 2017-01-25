@@ -13,17 +13,18 @@
 # limitations under the License.
 
 import datetime
-import errors
 import flask
 import functools
 import hashlib
 import hmac
 import pytz
+import six
 import time
-import urlparse
 
 from random import SystemRandom
+from six.moves.urllib import parse as urlparse
 
+from scoreboard import errors
 from scoreboard import main
 
 app = main.get_app()
@@ -154,9 +155,9 @@ class GameTime(object):
     def setup(cls):
         """Get start and end time."""
         cls.start, cls.end = app.config.get('GAME_TIME')
-        if isinstance(cls.start, basestring):
+        if isinstance(cls.start, six.string_types):
             cls.start = cls._parsedate(cls.start)
-        if isinstance(cls.end, basestring):
+        if isinstance(cls.end, six.string_types):
             cls.end = cls._parsedate(cls.end)
 
     @classmethod

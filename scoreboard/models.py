@@ -24,13 +24,13 @@ import pbkdf2
 import re
 import sqlalchemy as sqlalchemy_base
 import time
-import utils
 from sqlalchemy import exc
 from sqlalchemy import orm
 
 from scoreboard import attachments
 from scoreboard import errors
 from scoreboard import main
+from scoreboard import utils
 
 app = main.get_app()
 db = flask_sqlalchemy.SQLAlchemy(app)

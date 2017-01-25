@@ -22,8 +22,7 @@ Required API:
     delete(models.Attachment): deletes the attachment specified
 """
 
-
-import urlparse
+from six.moves.urllib import parse as urlparse
 
 from scoreboard import main
 
@@ -46,11 +45,11 @@ def get_backend_type():
 def get_backend(_backend_type):
     backend = None
     if _backend_type == "file":
-        import file as backend
+        from . import file as backend
     elif _backend_type == "gcs":
-        import gcs as backend
+        from . import gcs as backend
     elif _backend_type == "test":
-        import testing as backend
+        from . import testing as backend
     else:
         raise ImportError('Unhandled attachment backend %s' % _backend_type)
     return backend
