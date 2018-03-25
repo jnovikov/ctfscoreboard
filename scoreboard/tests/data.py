@@ -27,8 +27,8 @@ def make_admin():
 
 def make_teams():
     teams = []
-    for name in ('QQQ', 'Light Cats', 'Siberian Nopsled', 'PPP', 'Raelly',
-                 'Toast', 'csh', 'ByTeh', 'See Sure', 'Skinniest', '213374U'):
+    for name in ('KEK',
+                 'Toast'):
         teams.append(models.Team.create(name))
     return teams
 
@@ -114,14 +114,14 @@ def create_all():
 
     # Teams and players
     teams = make_teams()
-    make_players(teams)
+    # make_players(teams)
 
     # Categories and challenges
-    cats = make_categories()
-    tags = make_tags()
+    # cats = make_categories()
+    # tags = make_tags()
     models.commit()  # Need IDs allocated
-    challs = make_challenges(cats, tags)
+    # challs = make_challenges(cats, tags)
 
     # Submitted answers
-    make_answers(teams, challs)
-    models.commit()
+    # make_answers(teams, challs)
+    # models.commit()

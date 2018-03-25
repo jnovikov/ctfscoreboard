@@ -46,19 +46,19 @@ def register_user(email, nick, password, team_id=None,
     # TODO: Sanitize other fields
     first = models.User.query.count() == 0
     if not first and app.config.get('TEAMS'):
-        if team_id == 'new':
-            try:
-                app.logger.info('Creating new team %s for user %s',
-                                team_name, nick)
-                team = models.Team.create(team_name)
-            except exc.IntegrityError:
-                models.db.session.rollback()
-                raise errors.ValidationError('Team already exists!')
-        else:
-            team = models.Team.query.get(int(team_id))
-            if not team or team_code.lower() != team.code.lower():
-                raise errors.ValidationError(
-                    'Invalid team selection or team code.')
+        # if team_id == 'new':
+        #     try:
+        #         app.logger.info('Creating new team %s for user %s',
+        #                         team_name, nick)
+        #         team = models.Team.create(team_name)
+        #     except exc.IntegrityError:
+        #         models.db.session.rollback()
+        #         raise errors.ValidationError('Team already exists!')
+        # else:
+        team = models.Team.query.get(int(team_id))
+        if not team or team_code.lower() != team.code.lower():
+            raise errors.ValidationError(
+                'Invalid team selection or team code.')
     else:
         team = None
     try:

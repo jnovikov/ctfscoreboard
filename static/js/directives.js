@@ -60,14 +60,14 @@ sbDirectives.directive('countdownTimer', [
                     var timeleft = gameTimeService.toStart();
                     if (timeleft > 0) {
                         // Not yet started
-                        scope.to = "starts";
+                        scope.to = "начала";
                         scope.time = splitTime(timeleft);
                         return;
                     }
                     timeleft = gameTimeService.toEnd();
                     if (timeleft > 0) {
                         // During game
-                        scope.to = "ends";
+                        scope.to = "конца";
                         scope.time = splitTime(timeleft);
                         return;
                     }
@@ -77,9 +77,9 @@ sbDirectives.directive('countdownTimer', [
                         iprom = null;
                     }
                     if (!gameTimeService.end)
-                        scope.message = "Game on!";
+                        scope.message = "Контест идет!";
                     else
-                        scope.message = "Game over.";
+                        scope.message = "Контест окончен";
                 };
                 gameTimeService.then(function() {
                     if (!gameTimeService.start && !gameTimeService.end)

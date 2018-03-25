@@ -52,6 +52,7 @@ def login_required(f):
         if not is_logged_in():
             raise errors.AccessDeniedError('You must be logged in.')
         return f(*args, **kwargs)
+
     return wrapper
 
 
@@ -63,15 +64,16 @@ def admin_required(f):
         try:
             if not flask.g.admin:
                 app.logger.error(
-                        'Attempt by non-admin to access '
-                        '@admin_required resource.')
+                    'Attempt by non-admin to access '
+                    '@admin_required resource.')
                 flask.abort(403)
         except AttributeError:
             app.logger.error(
-                    'AttributeError by non-admin to access '
-                    '@admin_required resource.')
+                'AttributeError by non-admin to access '
+                '@admin_required resource.')
             flask.abort(403)
         return f(*args, **kwargs)
+
     return login_required(wrapper)
 
 
@@ -85,6 +87,7 @@ def team_required(f):
                 'Team request received for player without team.')
             flask.abort(400)
         return f(*args, **kwargs)
+
     return login_required(wrapper)
 
 
@@ -165,7 +168,7 @@ def validate_proof_of_work(val, key, nbits):
         nbits -= 8
         mac = mac[1:]
     if nbits:
-        mask = 2**nbits - 1
+        mask = 2 ** nbits - 1
         if ord(mac[0]) & mask:
             return False
     return True
@@ -195,17 +198,22 @@ class GameTime(object):
         until = cls.end if end else cls.start
         if until is None:
             return None
-        return until - datetime.datetime.utcnow()
+        return until - cls.now_time()
 
     @classmethod
     def state(cls, now=None):
         if not now:
-            now = datetime.datetime.utcnow()
+            now = cls.now_time(now)
         if cls.start and cls.start > now:
             return 'BEFORE'
         if cls.end and cls.end < now:
             return 'AFTER'
         return 'DURING'
+
+    @classmethod
+    def now_time(cls, now):
+        now = datetime.datetime.utcnow()
+        return now
 
     @classmethod
     def open(cls, after_end=False):
@@ -224,12 +232,14 @@ class GameTime(object):
     @classmethod
     def require_open(cls, f, after_end=False, or_admin=True):
         """Decorator for requiring the game is open."""
+
         @functools.wraps(f)
         def wrapper(*args, **kwargs):
             if (cls.open(after_end) or
                     (or_admin and flask.g.admin)):
                 return f(*args, **kwargs)
             raise errors.AccessDeniedError(cls.message())
+
         return wrapper
 
     @classmethod
@@ -240,18 +250,20 @@ class GameTime(object):
     @classmethod
     def require_not_started(cls, f):
         """Decorator for requiring the game has not started."""
+
         @functools.wraps(f)
         def wrapper(*args, **kwargs):
             if cls.state() == "BEFORE":
                 return f(*args, **kwargs)
             raise errors.AccessDeniedError(cls.message())
+
         return wrapper
 
     @classmethod
     def require_submittable(cls, f):
         """Decorator for requiring that the game may be submitted to."""
         return cls.require_open(
-                f, after_end=app.config.get('SUBMIT_AFTER_END'))
+            f, after_end=app.config.get('SUBMIT_AFTER_END'))
 
     @classmethod
     def message(cls):
@@ -266,9 +278,10 @@ class GameTime(object):
     def _parsedate(datestr):
         """Return a UTC non-TZ-aware datetime from a string."""
         if dateutil:
+            tzone = pytz.UTC
             dt = dateutil.parse(datestr)
             if dt.tzinfo:
-                dt = dt.astimezone(pytz.UTC).replace(tzinfo=None)
+                dt = dt.astimezone(tzone).replace(tzinfo=None)
             return dt
         # TODO: parse with strptime
         raise RuntimeError('No parser available.')
