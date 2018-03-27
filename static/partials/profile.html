@@ -3,15 +3,15 @@
   <div class='col-md-5 col-md-offset-2'>
     <form ng-submit='updateProfile()' name='profileForm'>
       <label for='team'
-        ng-show='!!team && !!team.name || changing'>Team</label>
+        ng-show='!!team && !!team.name || changing'>Команда</label>
       <div class='form-group' ng-show='!!team && !!team.name || changing'>
         <div class='multiple'>
           <input type='text' ng-disabled='!changing' name='team' id='team' ng-model='team.name'
             class='form-control'>
           <button class='btn btn-med side-button' ng-class="{'btn-info': !changing, 'btn-danger': changing}"
               ng-click='!changing ? startJoin() : cancel()' ng-hide='started()' type='button'>
-            <span ng-if='!changing'>Change Team</span>
-            <span ng-if=' changing'>Cancel</span>
+            <span ng-if='!changing'>Сменить команду (я предатель!)</span>
+            <span ng-if=' changing'>Отмена</span>
           </button>
         </div>
         <div class='drop-down' ng-show='changing'>
@@ -25,13 +25,13 @@
         </div>
       </div>
       <label for='team_code'
-        ng-show='!!team && !!team.code || changing'>Team Invite Code</label>
+        ng-show='!!team && !!team.code || changing'>Код приглашения в команду</label>
       <div class='form-group multiple' ng-show='!!team && !!team.code || changing'>
         <input type='text' ng-disabled='!changing' name='team_code' id='team_code'
           ng-model='team.code' class='form-control'>
         <a ng-show='changing' class='btn btn-success btn-med' ng-click='switchTeams()'
            ng-disabled='team.tid<0||!team.code'>
-          Join
+          Присоединиться
         </a>
       </div>
       <div class='form-group'>
@@ -40,16 +40,16 @@
           class='form-control' ng-model='user.email'>
       </div>
       <div class='form-group' ng-show='config.login_method == "local"'>
-        <label for='password'>Password</label>
+        <label for='password'>Пароль</label>
         <input type='password' id='password' name='password'
-          placeholder='password (to change)'
+          placeholder='На какой пароль меняем?'
           class='form-control' ng-model='user.password'
           >
       </div>
       <div class='form-group' ng-show='config.login_method == "local"'>
-        <label for='password2'>Repeat Password</label>
+        <label for='password2'>Повтори пароль</label>
         <input type='password' id='password2' name='password2'
-          placeholder='repeat password' class='form-control'
+          placeholder='Серьёзно, повтори' class='form-control'
           ng-model='user.password2'>
       </div>
       <input type='submit' value='Save' class='btn btn-primary'

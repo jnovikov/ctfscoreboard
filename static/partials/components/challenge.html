@@ -16,13 +16,13 @@
     <div>
       <!-- if solved -->
       <span class='alert alert-success solved ng-hide'
-        ng-show='chall.answered'>Solved</span>
+        ng-show='chall.answered'>Решено</span>
       <!-- if not solved -->
       <div ng-hide='chall.answered'>
         <form name='challengeForm' ng-submit='submitChallenge()' class='submitForm'>
           <input type='hidden' name='cid' value='{{chall.cid}}'>
           <div class='form-group'>
-            <label for='answer-{{chall.cid}}'>Answer</label>
+            <label for='answer-{{chall.cid}}'>Ответ</label>
             <input name='answer' class='form-control'
               id='answer-{{chall.cid}}' ng-model='chall.answer'
               required autocomplete='off'>
@@ -34,18 +34,18 @@
       </div> <!-- end submission -->
     </div>
     <div class='solvers' ng-show='chall.solves'>
-      <h3 class='solve-head'>Solved By:</h3>
+      <h3 class='solve-head'>Уже решили:</h3>
       <div class='solver-container' ng-repeat='ans in recent()'>
         <div class='solver-name'><a class='team-link' ng-click='closeModal("/teams/"+ans.team.tid)'>{{ans.team.name}}</a></div>
         <div class='solver-time'>{{timeFormat(ans.date)}}</div>
       </div>
       <div ng-show='chall.solves>minteams' class='show-container'>
-        <div class='show-more btn btn-primary' ng-show='numteams>=0' ng-click='numteams=-1'>Show {{chall.solves-minteams}} other{{chall.solves==(minteams+1) ? '' : 's'}}</div>
-        <div class='show-more btn btn-primary' ng-show='numteams<0'  ng-click='numteams=minteams' >Show Fewer</div>
+        <div class='show-more btn btn-primary' ng-show='numteams>=0' ng-click='numteams=-1'>Показать {{chall.solves-minteams}} остальн{{chall.solves==(minteams+1) ? 'ую' : 'ых'}}</div>
+        <div class='show-more btn btn-primary' ng-show='numteams<0'  ng-click='numteams=minteams' >Скрыть</div>
       </div>
     </div> <!-- solvers -->
   </div> <!-- panel body -->
   <div class='chall-panel-body panel-body' ng-show='chall.teaser'>
-    Prerequisites not met.
+      Уупс, сначала нужно решить что-то другое
   </div>
 </div> <!-- panel container -->

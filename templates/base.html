@@ -6,7 +6,7 @@ should be in {% raw %} blocks.  DFIU! -#}
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title ng-bind='config.sbname'>Scoreboard</title>
+    <title ng-bind='config.sbname'>Скорборд доска очки</title>
     <link href="/third_party/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="/third_party/angular/angular-csp.css" rel="stylesheet">
     <link href="/css/scoreboard.css" rel="stylesheet">
@@ -21,23 +21,23 @@ should be in {% raw %} blocks.  DFIU! -#}
       <header class='navbar navbar-default navbar-fixed-top' id='top'>
         <div class='container'>
           <div class='navbar-header'>
-            <a class='navbar-brand' ng-bind='config.sbname' href='/'>Scoreboard</a>
+            <a class='navbar-brand' ng-bind='config.sbname' href='/'>Скорборд доска очки</a>
           </div>
           <nav class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
               <li><a ng-href='{{config.rules}}' class='ng-hide'
-                  ng-show='config.rules' highlight-active>Rules</a></li>
+                  ng-show='config.rules' highlight-active>Правила</a></li>
               <li><a href='/challenges' class='ng-hide' ng-show='session.user'
-                  highlight-active>Challenges</a></li>
-              <li><a href='/scoreboard' highlight-active>Scoreboard</a></li>
+                  highlight-active>Таски</a></li>
+              <li><a href='/scoreboard' highlight-active>Скорборд (доска очки)</a></li>
               <li><a href='/profile' class='ng-hide' ng-show='session.user'
-                  highlight-active>Profile</a></li>
+                  highlight-active>Профиль</a></li>
               <li><a href='/logout' class='ng-hide' ng-show='session.user'
-                  highlight-active>Logout</a></li>
+                  highlight-active>Выйти</a></li>
               <li><a href='#' ng-href='{{config.login_url}}' ng-hide='session.user'
-                  highlight-active target="_self">Login</a></li>
+                  highlight-active target="_self">Войти</a></li>
               <li><a href='#' ng-href='{{config.register_url}}' ng-hide='session.user'
-                  highlight-active target="_self">Register</a></li>
+                  highlight-active target="_self">Зарегистрироваться</a></li>
             </ul>
             <ul class='nav navbar-right'>
                 <span countdown-timer id='countdown'></span>
@@ -61,25 +61,25 @@ should be in {% raw %} blocks.  DFIU! -#}
               <div id='admin-links' class='list-group ng-hide admin-links'
                 ng-show='isAdmin()'>
                 <a href='/admin/categories'
-                  class='list-group-item' highlight-active>Categories</a>
+                  class='list-group-item' highlight-active>Категории</a>
                 <a href='/admin/tags'
-                  class='list-group-item' highlight-active>Tags</a>
+                  class='list-group-item' highlight-active>Теги</a>
                 <a href='/admin/attachments'
-                  class='list-group-item' highlight-active>Attachments</a>
+                  class='list-group-item' highlight-active>Прикрепляшки</a>
                 <a href='/admin/challenges'
-                  class='list-group-item' highlight-active>Challenges</a>
+                  class='list-group-item' highlight-active>Таски</a>
                 <a href='/admin/backups'
-                  class='list-group-item' highlight-active>Backup/Restore</a>
+                  class='list-group-item' highlight-active>Бэкап и наоборот</a>
                 <a href='/admin/users'
-                  class='list-group-item' highlight-active>Users</a>
+                  class='list-group-item' highlight-active>Пользователи</a>
                 <a href='/admin/teams'
-                  class='list-group-item' highlight-active>Teams</a>
+                  class='list-group-item' highlight-active>Команды</a>
                 <a href='/admin/news'
-                  class='list-group-item' highlight-active>News</a>
+                  class='list-group-item' highlight-active>Новости</a>
                 <a href='/admin/pages'
-                  class='list-group-item' highlight-active>Pages</a>
+                  class='list-group-item' highlight-active>Страницы</a>
                 <a href='/admin/tools'
-                  class='list-group-item' highlight-active>Tools</a>
+                  class='list-group-item' highlight-active>Утилиты</a>
               </div>
               <div ng-controller='NewsCtrl' id='news-box'>
                 <ul class='ng-hide' ng-show='newsItems'>

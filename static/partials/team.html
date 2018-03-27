@@ -5,11 +5,11 @@
 </div>
 <div class='row'>
   <div class='col-md-8 col-md-offset-2 team-solved'>
-    <h4>Solved Challenges ({{team.score}} Points)</h4>
-    <p ng-hide='team.solved_challenges'>This team has not solved any challenges.</p>
+    <h4>Решённые задачки ({{team.score}} очков)</h4>
+    <p ng-hide='team.solved_challenges'>Эта команда ещё ничего не решила</p>
     <table ng-show='team.solved_challenges'
       class='team-challenges table table-striped table-responsive'>
-      <tr><th>Name</th><th>Points</th><th>Solved</th></tr>
+      <tr><th>Название</th><th>Очков</th><th>Решено</th></tr>
       <tr ng-repeat='chall in team.solved_challenges'>
         <td ng-bind='chall.name'></td>
         <td ng-bind='chall.points'></td>
