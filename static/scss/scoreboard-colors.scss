@@ -1,28 +1,64 @@
 
-$body-bkg: #2f343a;
+//$body-bkg: #2f343a;
+$body-bkg: #000000;
 $body-text: #ffffff;
-$nav-bkg: #27326d;
-$sidebar-bkg: #cbcbcb;
-$link: #8899b7;
-$news-bkg: #4e5d6c;
+$nav-bkg: #5c5;
+$sidebar-bkg: #161616;
+$link: #5cc;
+$news-bkg: #20262c;
 $cat-bkg: #3e5edb;
 $chall-bkg: #2444c1;
 $solved-bkg: #1c3596;
 $tag-border: #42a5f5;
 $tag-bkg: #1e88e5;
 $panel-heading-bkg:#27326d;
-$panel-body-bkg: #4e5d6c;
+$panel-body-bkg: #37444d;
 $chall-text: #ffffff;
-$sidebar-text: #ffffff;
+$sidebar-text: #000;
 $sidebar-active-text: #ffffff;
 
 body {
   background-color: $body-bkg;
   color: $body-text;
 }
+
+.navbar-default .navbar-nav>li>a:hover {
+  background-color: $link;
+}
+
+.navbar-default .navbar-nav>li>a:focus {
+  background-color: #00dfff;
+}
+
+a.list-group-item:hover {
+  background-color: #00dfff;
+  color: white;
+}
+
+
+a.list-group-item {
+  font-family: "Lucida Console",Monaco,monospace;
+}
+
+a.list-group-item:hover {
+  color: black;
+}
+
+.navbar-default .navbar-brand {
+  color: #000000 !important;
+  font-family: Helvetica, sans-serif;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #000000 !important;
+  font-family: "Lucida Console",Monaco,monospace;
+}
+
 .navbar-default {
   background-color: $nav-bkg;
+  color: #000000 !important;
 }
+
 .left-sidebar-background {
   background-color: $sidebar-bkg;
 }
@@ -38,7 +74,7 @@ a {
     &.list-group-item.active:focus {
       background-color: $link;
       border-color: $link;
-      color: $sidebar-active-text;
+      color: black;
     }
 }
 

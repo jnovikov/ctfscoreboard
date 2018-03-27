@@ -10,6 +10,7 @@ html {
 body {
     padding-top: 40px;
     font-weight:400;
+
 }
 
 table, .table {
@@ -18,6 +19,7 @@ table, .table {
 
 .left-sidebar {
     position: relative;
+    margin-top: 0.8em;
 
     .left-sidebar-background {
         /* This is so hacky but necessary. */
