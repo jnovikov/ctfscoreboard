@@ -18,6 +18,8 @@ import random
 
 import sys
 
+from scoreboard.models import Team
+
 reload(sys)
 sys.setdefaultencoding('utf8')
 
@@ -143,5 +145,11 @@ def import_teams():
                 print(unicode(team_name))
                 teams.append(models.Team.create(unicode(team_name).strip()))
             except Exception as e:
-                print(e,team_name)
+                print(e, team_name)
         models.commit()
+
+
+def get_codes():
+    teams = Team.all()
+    for team in teams:
+        print(unicode(team.name).decode('utf-8'), team.code)

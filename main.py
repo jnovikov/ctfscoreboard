@@ -35,6 +35,9 @@ def main(argv):
         from scoreboard.tests import data
         models.db.create_all()
         data.import_teams()
+    elif "get_codes" in argv:
+        from scoreboard.tests import data
+        data.get_codes()
     else:
         wsgi.app.run(
                 host='0.0.0.0', debug=True,
