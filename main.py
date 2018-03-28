@@ -31,6 +31,10 @@ def main(argv):
         from scoreboard.tests import data
         models.db.create_all()
         data.create_all()
+    elif "import_teams" in argv:
+        from scoreboard.tests import data
+        models.db.create_all()
+        data.import_teams()
     else:
         wsgi.app.run(
                 host='0.0.0.0', debug=True,

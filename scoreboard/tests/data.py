@@ -16,11 +16,17 @@ import datetime
 import json
 import random
 
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+import scoreboard
 from scoreboard import models
 
 
 def make_admin():
-    u = models.User.create('admin@example.com', 'admin', 'admin')
+    u = models.User.create('admin@example.com', "secret_admin_password", 'admin')
     u.promote()
     return u
 
@@ -54,20 +60,20 @@ def make_categories():
 def make_tags():
     tags = []
     for name in ('x86', 'x64', 'MIPS', 'RISC', 'Fun'):
-        tags.append(models.Tag.create(name, 'Problems involving '+name))
+        tags.append(models.Tag.create(name, 'Problems involving ' + name))
     return tags
 
 
 def make_challenges(cats, tags):
     challs = []
     chall_words = (
-            'Magic', 'Grand', 'Fast', 'Hash', 'Table', 'Password',
-            'Crypto', 'Alpha', 'Beta', 'Win', 'Socket', 'Ball',
-            'Stego', 'Word', 'Gamma', 'Native', 'Mine', 'Dump',
-            'Tangled', 'Hackers', 'Book', 'Delta', 'Shadow',
-            'Lose', 'Draw', 'Long', 'Pointer', 'Free', 'Not',
-            'Only', 'Live', 'Secret', 'Agent', 'Hax0r', 'Whiskey',
-            'Tango', 'Foxtrot')
+        'Magic', 'Grand', 'Fast', 'Hash', 'Table', 'Password',
+        'Crypto', 'Alpha', 'Beta', 'Win', 'Socket', 'Ball',
+        'Stego', 'Word', 'Gamma', 'Native', 'Mine', 'Dump',
+        'Tangled', 'Hackers', 'Book', 'Delta', 'Shadow',
+        'Lose', 'Draw', 'Long', 'Pointer', 'Free', 'Not',
+        'Only', 'Live', 'Secret', 'Agent', 'Hax0r', 'Whiskey',
+        'Tango', 'Foxtrot')
     for _ in xrange(25):
         title = random.sample(chall_words, 3)
         random.shuffle(title)
@@ -75,17 +81,17 @@ def make_challenges(cats, tags):
         flag = '_'.join(random.sample(chall_words, 4)).lower()
         cat = random.choice(cats)
         # Choose a random subset of tags
-        numtags = random.randint(0, len(tags)-1)
+        numtags = random.randint(0, len(tags) - 1)
         local_tags = random.sample(tags, numtags)
         points = random.randint(1, 20) * 100
         desc = 'Flag: ' + flag
         ch = models.Challenge.create(
-                title, desc, points, flag, cat.slug,
-                unlocked=True)
+            title, desc, points, flag, cat.slug,
+            unlocked=True)
         ch.add_tags(local_tags)
         if len(challs) % 8 == 7:
             ch.prerequisite = json.dumps(
-                    {'type': 'solved', 'challenge': challs[-1].cid})
+                {'type': 'solved', 'challenge': challs[-1].cid})
         # TODO: attachments
         challs.append(ch)
         models.commit()
@@ -95,8 +101,8 @@ def make_challenges(cats, tags):
 def make_answers(teams, challs):
     for team in teams:
         times = sorted(
-                [random.randint(0, 24*60) for _ in xrange(16)],
-                reverse=True)
+            [random.randint(0, 24 * 60) for _ in xrange(16)],
+            reverse=True)
         for ch in random.sample(challs, random.randint(4, 16)):
             a = models.Answer.create(ch, team, '')
             ago = datetime.timedelta(minutes=times.pop(0))
@@ -113,7 +119,7 @@ def create_all():
     make_admin()
 
     # Teams and players
-    teams = make_teams()
+    # teams = make_teams()
     # make_players(teams)
 
     # Categories and challenges
@@ -125,3 +131,17 @@ def create_all():
     # Submitted answers
     # make_answers(teams, challs)
     # models.commit()
+
+
+def import_teams():
+    with open("teams.txt") as team_file:
+
+        teams = []
+        team_names = team_file.readlines()
+        for team_name in team_names:
+            try:
+                print(unicode(team_name))
+                teams.append(models.Team.create(unicode(team_name).strip()))
+            except Exception as e:
+                print(e,team_name)
+        models.commit()
