@@ -37,9 +37,9 @@
         <label for='team'>Команда</label>
         <select id='team' class='form-control' name='team' ng-model='team'
             ng-required='config.teams'>
-          <optgroup label='New Team'>
-            <option value='new'>Создать новую</option>
-          </optgroup>
+          <!--<optgroup label='New Team'>-->
+            <!--<option value='new'>Создать новую</option>-->
+          <!--</optgroup>-->
           <optgroup label='Присоединиться к команде'>
             <option ng-repeat='team in teams | orderBy:"name"'
               value='{{team.tid}}'>{{team.name}}</option>
